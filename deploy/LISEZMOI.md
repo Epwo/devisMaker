@@ -1,7 +1,19 @@
 # DevisMaker : tester sur votre infrastructure
 
-Image publiée : `docker.io/CHANGER/devismaker` (linux/amd64 et linux/arm64).
+L'image est publiée en privé sur GitHub : `ghcr.io/epwo/devismaker`, pour linux/amd64 et linux/arm64.
 Il faut **Docker 24+ avec Compose v2**. Les deux fichiers de ce dossier suffisent, le code source n'est pas nécessaire.
+
+## 1. Accès à l'image (une fois)
+
+L'image suit les droits du dépôt [Epwo/devisMaker](https://github.com/Epwo/devisMaker) : il faut y avoir été
+invité. Créez ensuite un jeton GitHub : *Settings → Developer settings → Personal access tokens → Tokens (classic)*,
+avec la seule permission `read:packages`. Puis :
+
+```bash
+docker login ghcr.io -u <votre-identifiant-github>     # mot de passe : le jeton
+```
+
+## 2. Lancer
 
 ```bash
 cp .env.example .env      # renseigner POSTGRES_PASSWORD (+ clés API si souhaité)

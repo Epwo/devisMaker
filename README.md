@@ -54,15 +54,23 @@ docker compose down                                 # arrêter (les volumes sont
 
 ### Publier l'image pour un test externe
 
-Sur une machine qui a Docker (Mac compris), après un `docker login` :
+L'image est construite et publiée par GitHub Actions ([.github/workflows/docker.yml](.github/workflows/docker.yml)) sur
+`ghcr.io/epwo/devismaker`. Elle est privée et rattachée au dépôt, donc accessible à ses collaborateurs.
 
 ```bash
-IMAGE=docker.io/<compte>/devismaker ./scripts/publish_image.sh 0.3.0
+git tag v0.3.0 && git push origin v0.3.0    # -> tags 0.3.0, 0.3 et latest
 ```
 
-Le script fait d'abord un essai local (l'image démarre et `/health` répond), puis construit pour linux/amd64 et
-linux/arm64 et pousse les tags `0.3.0` et `latest`. Les testeurs n'ont besoin que du dossier `deploy/`
-(compose qui tire l'image, `.env.example`, `LISEZMOI.md`). Il faut y remplacer `CHANGER` par le compte du registre.
+Le workflow peut aussi être lancé à la main (onglet *Actions*, puis *Run workflow*). Il commence par un essai :
+l'image amd64 doit démarrer et `/health` répondre. Ensuite seulement, il construit pour linux/amd64 et linux/arm64 et
+publie. Les testeurs n'ont besoin que du dossier `deploy/` : un compose qui tire l'image, un `.env.example` et le
+`LISEZMOI.md`, qui décrit l'accès par `docker login ghcr.io`.
+
+Sans GitHub Actions, depuis une machine qui a Docker :
+
+```bash
+IMAGE=ghcr.io/epwo/devismaker ./scripts/publish_image.sh 0.3.0
+```
 
 Pour travailler sur l'interface avec rechargement à chaud (l'API doit tourner sur :8000) :
 

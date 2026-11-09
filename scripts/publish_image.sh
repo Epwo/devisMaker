@@ -1,16 +1,17 @@
 #!/usr/bin/env bash
 # Construit l'image DevisMaker pour linux/amd64 + linux/arm64 et la pousse sur un registre public.
 #
-#   docker login                                   # (ou : docker login ghcr.io)
-#   IMAGE=docker.io/<compte>/devismaker ./scripts/publish_image.sh 0.3.0
+# Normalement fait par GitHub Actions (.github/workflows/docker.yml) ; ce script sert sans Actions.
+#   docker login ghcr.io -u <identifiant>          # mot de passe : jeton GitHub avec write:packages
+#   ./scripts/publish_image.sh 0.3.0               # IMAGE=... pour un autre registre
 #
-# Variables : IMAGE (obligatoire), PLATFORMS (défaut linux/amd64,linux/arm64), SKIP_TEST=1 pour sauter l'essai local.
+# Variables : IMAGE (défaut ghcr.io/epwo/devismaker), PLATFORMS (défaut linux/amd64,linux/arm64), SKIP_TEST=1 pour sauter l'essai local.
 # Sur Mac Apple Silicon, l'étape amd64 passe par l'émulation QEMU de Docker Desktop : compter 10 à 20 min.
 set -euo pipefail
 
 VERSION="${1:-}"
-: "${IMAGE:?IMAGE=registre/compte/devismaker requis (ex. docker.io/moncompte/devismaker)}"
-[ -n "$VERSION" ] || { echo "usage : IMAGE=... $0 <version>   (ex. 0.3.0)"; exit 1; }
+: "${IMAGE:=ghcr.io/epwo/devismaker}"
+[ -n "$VERSION" ] || { echo "usage : $0 <version>   (ex. 0.3.0)"; exit 1; }
 PLATFORMS="${PLATFORMS:-linux/amd64,linux/arm64}"
 cd "$(dirname "$0")/.."
 
@@ -38,4 +39,4 @@ docker buildx build --platform "$PLATFORMS" --build-arg APP_VERSION="$VERSION" \
 
 docker buildx imagetools inspect "$IMAGE:$VERSION"
 echo
-echo "Publié : $IMAGE:$VERSION  (vérifier que le dépôt est PUBLIC sur le registre)"
+echo "Publié : $IMAGE:$VERSION"

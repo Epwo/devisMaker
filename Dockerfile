@@ -14,7 +14,9 @@ RUN npm run build
 FROM python:3.12.8-slim-bookworm AS app
 
 ARG APP_VERSION=dev
-LABEL org.opencontainers.image.title="DevisMaker" \
+# « source » rattache l'image publiée sur ghcr.io au dépôt GitHub (même visibilité, mêmes accès)
+LABEL org.opencontainers.image.source="https://github.com/Epwo/devisMaker" \
+      org.opencontainers.image.title="DevisMaker" \
       org.opencontainers.image.description="POC : devis de tôlerie à partir d'un plan (OCR + IA + chiffrage)" \
       org.opencontainers.image.version="${APP_VERSION}"
 
