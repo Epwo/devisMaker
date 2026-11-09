@@ -52,6 +52,18 @@ docker compose exec app python scripts/migrate_learning_json.py   # importer un 
 docker compose down                                 # arrêter (les volumes sont conservés)
 ```
 
+### Publier l'image pour un test externe
+
+Sur une machine qui a Docker (Mac compris), après un `docker login` :
+
+```bash
+IMAGE=docker.io/<compte>/devismaker ./scripts/publish_image.sh 0.3.0
+```
+
+Le script fait d'abord un essai local (l'image démarre et `/health` répond), puis construit pour linux/amd64 et
+linux/arm64 et pousse les tags `0.3.0` et `latest`. Les testeurs n'ont besoin que du dossier `deploy/`
+(compose qui tire l'image, `.env.example`, `LISEZMOI.md`). Il faut y remplacer `CHANGER` par le compte du registre.
+
 Pour travailler sur l'interface avec rechargement à chaud (l'API doit tourner sur :8000) :
 
 ```bash
