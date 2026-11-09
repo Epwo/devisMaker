@@ -203,9 +203,11 @@ def _view_crops(page_img) -> list:
 
 
 def provider() -> str | None:
-    """DEVIS_VLM_PROVIDER (claude | mistral) ; par défaut le premier dont la clé est configurée."""
-    p = os.getenv("DEVIS_VLM_PROVIDER", "auto")
-    if p != "auto":
+    """DEVIS_VLM_PROVIDER (claude | mistral) ; par défaut le premier dont la clé est configurée.
+    Sans clé Claude, Mistral est utilisé (même si Claude est demandé) ; sans aucune clé : None (lecture OCR seule)."""
+    has = {"claude": bool(_claude_key()), "mistral": bool(os.getenv("MISTRAL_API_KEY"))}
+    p = (os.getenv("DEVIS_VLM_PROVIDER") or "auto").strip().lower()
+    if p in has and has[p]:
         return p
     # Claude d'abord : tous les modèles Claude (y compris Haiku 5.5, le moins cher) comprennent les vues de piece_003
     # (8/8), les petits modèles Mistral non. Si Claude échoue (crédit, réseau), le pipeline bascule sur le consensus

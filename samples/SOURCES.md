@@ -14,5 +14,4 @@
 | davoc_fixation_ardoise.jpg | plan DAVoc fourni par l'utilisateur | cartouche complet : masse 1167,85 g, surface développée, quantité 53 |
 | tmlaser_came_contact.png | plan TM Laser fourni par l'utilisateur | plis 45°/90°, « ACIER S235 ép 8mm » |
 | komacut_bent_part.jpg, komacut_unfolding*.jpg | Komacut, guide de mise en plan (komacut.com) | cotes « clés » encadrées ; piège : cartouche « 17 Bends » copié sur un autre plan |
-| mit_flat_bracket.pdf | MIT OCW 2.007 (CC BY-NC-SA) | scan, cotes en fractions de pouce |
 | solidprofessor_bracket_p2.pdf | SolidProfessor, exercice (non noté) | pièce complexe |

@@ -5,7 +5,7 @@ from fastapi.testclient import TestClient
 
 from api.main import app
 
-PLAN = Path(__file__).resolve().parents[1] / "samples" / "mit_flat_bracket.pdf"
+PLAN = Path(__file__).resolve().parents[1] / "samples" / "piece_003.pdf"
 
 
 def test_analysis_feedback_quote_roundtrip():

@@ -233,19 +233,6 @@
           ]
         }
       }
-    },
-    "mit_flat_bracket.pdf": {
-      "source": "MIT OCW 2.007 (scan, pouces en fractions)",
-      "fields": {
-        "material": null,
-        "thickness_mm": 1.5875,
-        "flat_length_mm": 123.83,
-        "flat_width_mm": 101.6,
-        "holes": [],
-        "bends": {
-          "count": 1
-        }
-      }
     }
   }
 }

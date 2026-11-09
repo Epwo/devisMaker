@@ -217,3 +217,19 @@ def test_no_ai_key_falls_back_to_ocr(monkeypatch):
     spec = pipeline.extract(PLAN.read_bytes(), PLAN.name, use_vlm=True)
     assert spec.vlm_error is None and not spec.vlm_used
     assert any("IA non configurée" in w for w in spec.warnings)
+
+
+@pytest.mark.parametrize("forced, claude, mistral, expected", [
+    ("auto", "k", "k", "claude"),
+    ("auto", "", "k", "mistral"),        # pas de clé Claude : Mistral
+    ("claude", "", "k", "mistral"),      # Claude demandé mais sans clé : Mistral plutôt qu'une erreur
+    ("mistral", "k", "k", "mistral"),
+    ("auto", "", "", None),              # aucune clé : lecture OCR seule
+])
+def test_provider_selection(monkeypatch, forced, claude, mistral, expected):
+    for k in ("ANTHROPIC_API_KEY", "ANTHROPIC_AUTH_TOKEN"):
+        monkeypatch.delenv(k, raising=False)
+    monkeypatch.setenv("DEVIS_VLM_PROVIDER", forced)
+    monkeypatch.setenv("CLAUDE_API_KEY", claude)
+    monkeypatch.setenv("MISTRAL_API_KEY", mistral)
+    assert vlm.provider() == expected
