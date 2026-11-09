@@ -1,0 +1,33 @@
+{
+  "_comment": "Vérité terrain lue sur piece_003.pdf. devis.pdf (exemple fourni) diffère : référence/désignation complète issues du cartouche masqué sur notre scan, et trous Ø4/Ø8 + plis 45° qui ne correspondent pas au plan.",
+  "devis_pdf": {
+    "reference": "21597494",
+    "designation": "SUPPORT REAR BRAKE",
+    "thickness_mm": 2,
+    "length_mm": 60,
+    "width_mm": 60,
+    "height_mm": 2,
+    "holes": [{"diameter_mm": 4, "quantity": 2}, {"diameter_mm": 8, "quantity": 2}],
+    "bends": [{"angle_deg": 45, "quantity": 2}],
+    "tolerance_standard": "ISO 2768-m",
+    "notes": ["BENDING RADIUS: 2mm", "UNDIMENSIONED RADIUS: 2mm", "NO PAINT ON THREADING"]
+  },
+  "fields": {
+    "designation": "SUPPORT",
+    "thickness_mm": 2,
+    "length_mm": 60,
+    "width_mm": 60,
+    "height_mm": 22,
+    "holes": [{"diameter_mm": 8.75, "quantity": 2}, {"diameter_mm": 7.5, "quantity": 2}],
+    "cutouts": [{"description": "chanfrein 5x5", "quantity": 2}, {"description": "chanfrein 20x20", "quantity": 2}],
+    "bends": [{"angle_deg": 90, "radius_mm": 2, "quantity": 2}],
+    "components": [{"designation": "ECROU A SERTIR M6", "quantity": 2}],
+    "tolerance_standard": "ISO 2768-m"
+  },
+  "annotations": [
+    "2x 5x5", "2X Ø8.75", "+0.1", "(PM)", "13", "20", "2X Ø7.5", "25.5", "15.5", "20", "25", "60", "30", "2x 20x20",
+    "60", "42", "2", "22",
+    "QTY", "DESIGNATION", "SUPPORT", "CRIMPING NUTS M6", "ECROU A SERTIR M6",
+    "BENDING RADIUS", "UNDIMENSIONNED RADIUS", "NO PAINT ON THREADING", "39.02.409", "ISO 2768"
+  ]
+}

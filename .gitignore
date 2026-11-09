@@ -1,0 +1,25 @@
+# secrets
+.env
+.env.*
+!.env.example
+
+# environnements, caches, builds
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+.cache/
+.claude/
+frontend/node_modules/
+frontend/dist/
+out/
+
+# journal d'apprentissage et base locale (plans clients + corrections)
+data/
+
+# fichiers instructions
+Cas Pratique Responsable Data Scientist.pdf
+/devis.pdf
+/piece_003.pdf
+RECAP.pdf
+REPONSES_CAS_PRATIQUE.md

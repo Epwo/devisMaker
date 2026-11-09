@@ -1,0 +1,69 @@
+{
+  "_comment": "Paramètres de chiffrage par défaut (données simulées, ordre de grandeur atelier tôlerie France 2026). Tous modifiables.",
+  "currency": "EUR",
+  "default_quantity": 10,
+  "margin_rate": 0.25,
+
+  "defaults": {
+    "material": "acier",
+    "material_grade": "S235JR",
+    "thickness_mm": 2.0,
+    "surface_treatment": "aucun (brut)"
+  },
+
+  "materials": {
+    "acier":           {"density_kg_dm3": 7.85, "price_eur_kg": 1.30, "laser_speed_factor": 1.0},
+    "acier galvanisé": {"density_kg_dm3": 7.85, "price_eur_kg": 1.60, "laser_speed_factor": 0.95},
+    "inox":            {"density_kg_dm3": 7.93, "price_eur_kg": 4.20, "laser_speed_factor": 0.8},
+    "aluminium":       {"density_kg_dm3": 2.70, "price_eur_kg": 4.50, "laser_speed_factor": 0.9},
+    "cuivre/laiton":   {"density_kg_dm3": 8.50, "price_eur_kg": 9.00, "laser_speed_factor": 0.5}
+  },
+  "scrap_rate": 0.20,
+  "blank_margin_mm": 5,
+
+  "laser": {
+    "rate_eur_h": 120,
+    "pierce_s": 1.0,
+    "speed_m_min_by_thickness": [[1, 20], [1.5, 15], [2, 10], [3, 6], [4, 4.5], [5, 3.5], [6, 3], [8, 2.2], [10, 1.6], [15, 0.9], [20, 0.6]],
+    "load_unload_s_per_part": 15
+  },
+
+  "bending": {
+    "rate_eur_h": 75,
+    "s_per_bend": 12,
+    "setup_min_per_bend_type": 15
+  },
+
+  "labor": {
+    "rate_eur_h": 38,
+    "deburr_handling_min_per_part": 1.0,
+    "insert_s_per_component": 8,
+    "inspection_min_per_part": 0.5
+  },
+
+  "programming": {
+    "rate_eur_h": 60,
+    "cam_min_per_order": 30
+  },
+
+  "components": {
+    "_default_eur": 0.30,
+    "ecrou a sertir|crimp|nut|insert": 0.15,
+    "goujon|stud|pem": 0.25
+  },
+
+  "surface_treatment_eur_m2": {
+    "aucun|brut|raw": 0,
+    "poudre|powder|ral|peinture|paint": 18,
+    "zing|zinc|galva": 8,
+    "anodi": 25,
+    "cataphor": 12
+  },
+  "surface_treatment_min_eur_part": 1.0,
+
+  "sanity": {
+    "price_eur_kg_min": 2,
+    "price_eur_kg_max": 150,
+    "unit_price_min_eur": 0.5
+  }
+}

@@ -1,0 +1,25 @@
+# Jamais dans l'image : secrets, données clients, caches, environnements locaux
+.env
+.env.*
+!.env.example
+.venv/
+.cache/
+data/
+out/
+**/__pycache__/
+**/*.pyc
+.pytest_cache/
+.claude/
+.git/
+
+frontend/node_modules/
+frontend/dist/
+
+tests/
+deploy/
+samples/refs/
+*.md
+!README.md
+Cas Pratique*.pdf
+devis.pdf
+piece_003.pdf

@@ -1,0 +1,251 @@
+{
+  "_comment": "Vérité terrain du banc d'essai. Seuls les champs lisibles sans ambiguïté sur le plan sont notés. null = l'information N'EST PAS sur le plan : toute valeur proposée compte comme FAUSSE. Dimensions en mm. holes = [[Ø, quantité]], bends = {count, angles}. Champ absent = non noté.",
+  "plans": {
+    "piece_003.pdf": {
+      "source": "cas pratique (scan, cartouche masqué) ; devis.pdf = devis d'exemple",
+      "fields": {
+        "designation": "SUPPORT",
+        "material": null,
+        "thickness_mm": 2,
+        "length_mm": 60,
+        "width_mm": 60,
+        "height_mm": 22,
+        "holes": [
+          [
+            8.75,
+            2
+          ],
+          [
+            7.5,
+            2
+          ]
+        ],
+        "bends": {
+          "count": 2,
+          "angles": [
+            90
+          ]
+        }
+      },
+      "devis_pdf": {
+        "reference": "21597494",
+        "designation": "SUPPORT REAR BRAKE",
+        "thickness_mm": 2,
+        "length_mm": 60,
+        "width_mm": 60,
+        "height_mm": 2,
+        "holes": [
+          [
+            4,
+            2
+          ],
+          [
+            8,
+            2
+          ]
+        ],
+        "bends": {
+          "count": 2,
+          "angles": [
+            45
+          ]
+        },
+        "mass_kg": 0.068
+      }
+    },
+    "eduscol_support_traxion.pdf": {
+      "source": "Bac pro Construction des carrosseries 2024 (eduscol) — dessin DT 2/10 + corrigé avec chiffrage",
+      "fields": {
+        "designation": "SUPPORT BOITIER PNEUMATIQUE",
+        "material": "acier galvanisé",
+        "thickness_mm": 4,
+        "length_mm": 250,
+        "width_mm": 128,
+        "height_mm": 74,
+        "flat_length_mm": 250,
+        "flat_width_mm": 220.2,
+        "holes": [
+          [
+            8,
+            6
+          ],
+          [
+            15,
+            1
+          ]
+        ],
+        "bends": {
+          "count": 2,
+          "angles": [
+            90
+          ]
+        }
+      },
+      "quote_reference": {
+        "quantity": 70,
+        "unit_cost_eur": 12.15,
+        "detail": "étude 6,85 + découpe laser 3,08 + pliage 1,62 + contrôle 0,60 (hors matière)"
+      }
+    },
+    "davoc_fixation_ardoise.jpg": {
+      "source": "plan DAVoc fourni par l'utilisateur (5.jfif)",
+      "fields": {
+        "designation": "Fixation ardoise",
+        "material": "acier galvanisé",
+        "thickness_mm": 6,
+        "length_mm": 300,
+        "width_mm": 97.64,
+        "height_mm": 47.29,
+        "holes": [
+          [
+            11,
+            5
+          ]
+        ],
+        "bends": {
+          "count": 2
+        }
+      },
+      "quote_reference": {
+        "quantity": 53,
+        "mass_kg": 1.16785,
+        "developed_area_mm2": 58065.97
+      }
+    },
+    "tmlaser_came_contact.png": {
+      "source": "plan TM Laser fourni par l'utilisateur",
+      "fields": {
+        "material": "acier",
+        "thickness_mm": 8,
+        "bends": {
+          "count": 3,
+          "angles": [
+            45,
+            90
+          ]
+        }
+      },
+      "quote_reference": {
+        "quantity": 50
+      }
+    },
+    "komacut_bent_part.jpg": {
+      "source": "Komacut, guide de mise en plan (exemple de pièce pliée)",
+      "fields": {
+        "designation": "2 Bends 6 Holes",
+        "material": "aluminium",
+        "thickness_mm": 1.6,
+        "length_mm": 95.25,
+        "width_mm": 95.25,
+        "height_mm": 47.6,
+        "holes": [
+          [
+            12.7,
+            6
+          ]
+        ],
+        "bends": {
+          "count": 2,
+          "angles": [
+            90
+          ]
+        }
+      }
+    },
+    "komacut_unfolding.jpg": {
+      "source": "Komacut, développé ; PIÈGE : le cartouche annonce « 17 Bends 3 Holes » (copié d'un autre plan)",
+      "fields": {
+        "material": "aluminium",
+        "thickness_mm": 3,
+        "flat_length_mm": 128.59,
+        "flat_width_mm": 50,
+        "holes": [
+          [
+            5,
+            2
+          ],
+          [
+            4,
+            1
+          ],
+          [
+            3,
+            3
+          ]
+        ],
+        "bends": {
+          "count": 3
+        }
+      }
+    },
+    "komacut_unfolding2.jpg": {
+      "source": "Komacut, pièce à 17 plis",
+      "fields": {
+        "material": "inox",
+        "thickness_mm": 1,
+        "length_mm": 1152.91,
+        "holes": [
+          [
+            6.76,
+            3
+          ]
+        ],
+        "bends": {
+          "count": 17
+        }
+      }
+    },
+    "umaine_sheetmetal_example2.pdf": {
+      "source": "University of Maine MEE120 (pouces)",
+      "fields": {
+        "designation": "BRACKET",
+        "material": "acier",
+        "thickness_mm": 1.519,
+        "length_mm": 76.2,
+        "flat_length_mm": 76.2,
+        "flat_width_mm": 53.09,
+        "holes": [
+          [
+            6.35,
+            2
+          ]
+        ],
+        "bends": {
+          "count": 1,
+          "angles": [
+            90
+          ]
+        }
+      }
+    },
+    "ufl_sheetmetal_demo.pdf": {
+      "source": "University of Florida EML2322L (pouces)",
+      "fields": {
+        "designation": "SHEETMETAL DEMO",
+        "material": "acier",
+        "thickness_mm": 1.245,
+        "length_mm": 78.74,
+        "width_mm": 78.74,
+        "bends": {
+          "count": 4,
+          "angles": [
+            90
+          ]
+        }
+      }
+    },
+    "mit_flat_bracket.pdf": {
+      "source": "MIT OCW 2.007 (scan, pouces en fractions)",
+      "fields": {
+        "material": null,
+        "thickness_mm": 1.5875,
+        "flat_length_mm": 123.83,
+        "flat_width_mm": 101.6,
+        "holes": [],
+        "bends": {
+          "count": 1
+        }
+      }
+    }
+  }
+}

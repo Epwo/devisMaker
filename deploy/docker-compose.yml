@@ -1,0 +1,42 @@
+# DevisMaker : test sur votre infrastructure, à partir de l'image publiée (aucun code source nécessaire).
+#   1. cp .env.example .env   puis renseigner POSTGRES_PASSWORD (et vos clés API si vous voulez l'IA)
+#   2. docker compose up -d
+#   3. http://localhost:8000
+# Données persistantes : volumes « pgdata » (base) et « cache » (réponses OCR/IA déjà payées).
+
+services:
+  db:
+    image: postgres:17.2-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-devismaker}
+      POSTGRES_USER: ${POSTGRES_USER:-devis}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?Définir POSTGRES_PASSWORD dans .env}
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+    # Pas de port publié : la base n'est joignable que par l'application
+
+  app:
+    image: ${DEVIS_IMAGE:?Définir DEVIS_IMAGE dans .env}:${APP_VERSION:-latest}
+    restart: unless-stopped
+    env_file:
+      - path: .env
+        required: false
+    environment:
+      DATABASE_URL: postgresql+psycopg://${POSTGRES_USER:-devis}:${POSTGRES_PASSWORD}@db:5432/${POSTGRES_DB:-devismaker}
+    ports:
+      - "${APP_PORT:-8000}:8000"
+    volumes:
+      - cache:/app/.cache
+    depends_on:
+      db:
+        condition: service_healthy
+
+volumes:
+  pgdata:
+  cache:
