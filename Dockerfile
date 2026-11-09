@@ -14,10 +14,14 @@ RUN npm run build
 FROM python:3.12.8-slim-bookworm AS app
 
 ARG APP_VERSION=dev
-LABEL org.opencontainers.image.title="DevisMaker"       org.opencontainers.image.description="POC : devis de tôlerie à partir d'un plan (OCR + IA + chiffrage)"       org.opencontainers.image.version="${APP_VERSION}"
+LABEL org.opencontainers.image.title="DevisMaker" \
+      org.opencontainers.image.description="POC : devis de tôlerie à partir d'un plan (OCR + IA + chiffrage)" \
+      org.opencontainers.image.version="${APP_VERSION}"
 
-ENV DEVIS_VERSION=${APP_VERSION}     PYTHONDONTWRITEBYTECODE=1 \
+ENV DEVIS_VERSION=${APP_VERSION} \
+    PYTHONDONTWRITEBYTECODE=1 \
     PYTHONUNBUFFERED=1 \
+    PYTHONIOENCODING=utf-8 \
     PIP_NO_CACHE_DIR=1 \
     PIP_DISABLE_PIP_VERSION_CHECK=1
 
@@ -30,21 +34,30 @@ WORKDIR /app
 COPY requirements.txt .
 RUN pip install -r requirements.txt
 
-# Modèles OCR téléchargés au build (RapidOCR 3 les télécharge au 1er usage) : pas d'accès réseau requis au démarrage
-COPY devis/__init__.py devis/ocr.py devis/schemas.py devis/
-RUN python -c "from devis.ocr import _rapid_v4, _rapid_v5; _rapid_v4(); _rapid_v5(False); _rapid_v5(True); print('modèles OCR prêts')"
+# Utilisateur non root, propriétaire des seuls dossiers où l'application écrit : .cache (réponses OCR/IA), data
+# (SQLite si pas de PostgreSQL) et le dossier des modèles RapidOCR, qu'il re-télécharge s'il juge un fichier
+# absent ou invalide (sinon : « Permission denied » sur ch_PP-OCRv5_det_mobile.onnx et repli sur l'OCR local).
+RUN useradd --create-home --uid 1000 devis \
+ && models="$(python -c 'import os, rapidocr; print(os.path.join(os.path.dirname(rapidocr.__file__), "models"))')" \
+ && mkdir -p .cache data "$models" \
+ && chown -R devis:devis .cache data "$models"
 
+# Modèles OCR téléchargés au build, par l'utilisateur qui fera tourner l'application, puis vraie lecture d'un plan
+# avec chaque moteur (dont ceux de « mistral_board ») : un modèle manquant ou illisible fait échouer le build.
+COPY devis/__init__.py devis/ocr.py devis/schemas.py devis/
+COPY scripts/warmup_ocr.py scripts/
+COPY samples/tmlaser_came_contact.png samples/
+USER devis
+RUN python scripts/warmup_ocr.py
+
+# Reste de l'application, propriété de root : en lecture seule pour l'utilisateur devis
+USER root
 COPY api/ api/
 COPY devis/ devis/
 COPY config/ config/
 COPY scripts/ scripts/
 COPY samples/ samples/
 COPY --from=front /front/dist frontend/dist
-
-# Utilisateur non root ; .cache (réponses OCR/IA) et data (SQLite si pas de PostgreSQL) sont des volumes
-RUN useradd --create-home --uid 1000 devis \
- && mkdir -p .cache data \
- && chown -R devis:devis .cache data
 USER devis
 
 EXPOSE 8000

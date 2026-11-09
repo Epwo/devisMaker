@@ -1,5 +1,5 @@
 pymupdf>=1.24
-rapidocr_onnxruntime>=1.4
+rapidocr_onnxruntime==1.4.4
 opencv-python-headless>=4.9
 anthropic>=2.0
 fastapi>=0.115
@@ -9,6 +9,6 @@ pydantic>=2.7
 python-dotenv>=1.0
 pytest>=8
 mistralai>=3.7
-rapidocr>=3.10
+rapidocr==3.10.0
 sqlalchemy>=2.0
 psycopg[binary]>=3.2
