@@ -7,7 +7,7 @@ from devis import pipeline, vlm
 from devis.schemas import Field, Source
 
 ROOT = Path(__file__).resolve().parents[1]
-PLAN = ROOT / "piece_003.pdf"
+PLAN = ROOT / "samples" / "piece_003.pdf"
 
 
 @pytest.fixture(scope="module")
@@ -209,3 +209,11 @@ def test_unreadable_reading_falls_back_to_alt():
             OcrToken(text="300", conf=0.9, box=Box(x0=50, y0=0, x1=80, y1=10), vertical=False)]
     out = convert({"thickness_mm": {"ids": [0], "confidence": 0.9}, "length_mm": {"ids": [1], "confidence": 0.9}}, toks, False)
     assert out["thickness_mm"]["value"] == 6
+
+
+def test_no_ai_key_falls_back_to_ocr(monkeypatch):
+    """Sans aucune clé IA : lecture OCR seule, avertissement clair, pas d'erreur (régression : « + » in None)."""
+    monkeypatch.setattr(vlm, "provider", lambda: None)
+    spec = pipeline.extract(PLAN.read_bytes(), PLAN.name, use_vlm=True)
+    assert spec.vlm_error is None and not spec.vlm_used
+    assert any("IA non configurée" in w for w in spec.warnings)

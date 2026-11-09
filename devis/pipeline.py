@@ -287,6 +287,10 @@ def extract(data: bytes, file_name: str, use_vlm: bool = True, with_preview: boo
     _trace_routing(spec, todo, use_vlm, text_source)
     if not use_vlm or not todo:
         return _finish(spec)
+    if not (vlm_provider or vlm.provider()):  # aucune clé IA : on s'arrête à la lecture OCR, sans erreur
+        log.info("IA non configurée (ni CLAUDE_API_KEY ni MISTRAL_API_KEY) : lecture OCR seule")
+        spec.warnings.append("IA non configurée (aucune clé API) : informations issues de la seule lecture OCR")
+        return _finish(spec)
 
     known = {k: _plain(f.value) for k, f in fields.items() if k not in todo and not f.missing}
     try:

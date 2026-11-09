@@ -26,7 +26,7 @@ from devis.ocr import ENGINES, normalize  # noqa: E402
 from devis.pipeline import extract  # noqa: E402
 
 TRUTH = json.loads((ROOT / "tests/fixtures/piece_003_truth.json").read_text(encoding="utf-8"))
-PLAN = ROOT / "piece_003.pdf"
+PLAN = ROOT / "samples" / "piece_003.pdf"
 
 
 def compact(s: str) -> str:

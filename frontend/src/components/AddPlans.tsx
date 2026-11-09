@@ -23,7 +23,7 @@ export function AddPlans({ samples, onAdded, onCancel, big }: {
   const onDrop = (e: DragEvent) => { e.preventDefault(); setOver(false); take(e.dataTransfer.files); };
 
   const start = () => {
-    addFiles(files, { useAi /* le serveur décide selon les clés configurées */, quantity, client: client.trim() });
+    addFiles(files, { useAi: useAi && aiAvailable, quantity, client: client.trim() });
     setFiles([]);
     onAdded();
   };
